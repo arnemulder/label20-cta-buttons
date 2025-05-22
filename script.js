@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'form', url: data.form_url, icon: 'fa-pen-to-square', iconColor: data.form_icon_color, bgColor: data.form_bg_color, order: parseInt(data.form_order), show: !!data.form_url, targetBlank: data.form_target_blank },
     ];
 
-    // Filter en sorteer
+       // Filter en sorteer
     buttons = rawButtons.filter(btn => btn.url && btn.show).sort((a, b) => a.order - b.order);
 
     buttons.forEach(btn => {
@@ -47,6 +47,15 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             button.target = '_blank';
         }
+		    // Voeg click event toe voor dataLayer tracking
+    button.addEventListener('click', () => {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'cta_button_click',
+            ctaType: btn.type,
+            ctaUrl: btn.url
+        });
+    });
         btnContainer.appendChild(button);
     });
 
