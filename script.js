@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'form', url: data.form_url, icon: 'fa-pen-to-square', iconColor: data.form_icon_color, bgColor: data.form_bg_color, order: parseInt(data.form_order), show: !!data.form_url, targetBlank: data.form_target_blank },
     ];
 
-       // Filter en sorteer
+    // Filter en sorteer
     buttons = rawButtons.filter(btn => btn.url && btn.show).sort((a, b) => a.order - b.order);
 
     buttons.forEach(btn => {
