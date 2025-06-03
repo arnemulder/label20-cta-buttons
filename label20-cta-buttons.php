@@ -12,6 +12,20 @@ Update URI: https://github.com/arnemulder/label20-cta-buttons
 
 if (!defined('ABSPATH')) exit;
 
+require_once plugin_dir_path(__FILE__) . 'includes/plugin-update-checker/plugin-update-checker.php';
+
+$updateChecker = Puc_v4_Factory::buildUpdateChecker(
+    'https://github.com/arnemulder/label20-cta-buttons/',
+    __FILE__,
+    'label20-cta-buttons'
+);
+
+// Optioneel: als de repo privé is, kun je hier een GitHub-token instellen:
+$updateChecker->setAuthentication('GITHUB_ACCESS_TOKEN');
+
+// Gebruik de juiste branch (bijv. 'main')
+$updateChecker->setBranch('main');
+
 // Scripts en styles
 function l20cta_enqueue_scripts() {
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
