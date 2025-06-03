@@ -47,15 +47,17 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             button.target = '_blank';
         }
-		    // Voeg click event toe voor dataLayer tracking
-    button.addEventListener('click', () => {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            event: 'cta_button_click',
-            ctaType: btn.type,
-            ctaUrl: btn.url
+
+        // Voeg click event toe voor dataLayer tracking
+        button.addEventListener('click', () => {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'cta_button_click',
+                ctaType: btn.type,
+                ctaUrl: btn.url
+            });
         });
-    });
+
         btnContainer.appendChild(button);
     });
 
@@ -63,21 +65,21 @@ document.addEventListener('DOMContentLoaded', function () {
     mainBtn.style.backgroundColor = data.main_bg_color;
     mainBtn.querySelector('i').style.color = data.main_icon_color;
 
+    // Initiale status ophalen uit localStorage
+    const menuClosed = localStorage.getItem('l20cta-closed') === 'true';
+    if (!menuClosed) {
+        btnContainer.classList.add('l20cta-visible');
+        mainBtn.classList.add('l20cta-open');
+    }
+
     // Toggle zichtbaar bij klik op hoofdknop
     mainBtn.addEventListener('click', function (event) {
-        event.stopPropagation(); // voorkom sluiten direct na openen
-        btnContainer.classList.toggle('l20cta-visible');
+        event.stopPropagation();
+        const isOpen = btnContainer.classList.toggle('l20cta-visible');
         mainBtn.classList.toggle('l20cta-open');
+
+        localStorage.setItem('l20cta-closed', isOpen ? 'false' : 'true');
     });
 
-    // Sluit menu bij klik buiten de knoppen
-    document.addEventListener('click', function (event) {
-        const clickedInsideMain = mainBtn.contains(event.target);
-        const clickedInsideButtons = btnContainer.contains(event.target);
-
-        if (!clickedInsideMain && !clickedInsideButtons) {
-            btnContainer.classList.remove('l20cta-visible');
-            mainBtn.classList.remove('l20cta-open');
-        }
-    });
+    // Klik buiten het menu sluit het menu niet meer
 });
