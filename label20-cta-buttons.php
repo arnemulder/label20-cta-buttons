@@ -1,10 +1,14 @@
 <?php
-/**
- * Plugin Name: Label 20 CTA Buttons
- * Description: Zwevende contactknoppen met automatisch gegenereerde links en instelbare icoontjes.
- * Version: 1.1.0
- * Author: Arne Mulder
- */
+/*
+Plugin Name: Label 20 CTA Buttons
+Plugin URI: https://github.com/arnemulder/label20-cta-buttons
+Description: Toon een zwevende CTA-knop met uitbreidbare contactopties.
+Version: 1.0.0
+Author: Arne Mulder
+Author URI: https://label20.nl
+License: GPLv2 or later
+Update URI: https://github.com/arnemulder/label20-cta-buttons
+*/
 
 if (!defined('ABSPATH')) exit;
 
@@ -193,6 +197,7 @@ function l20cta_settings_page() {
         Ja
     </td>
 </tr>
+			</table>
             <h2>Openingstijden telefoon</h2>
 <p>Gebruik formaat <code>09:00-17:00</code>. Laat leeg als je gesloten bent.</p>
 <table class="form-table">
