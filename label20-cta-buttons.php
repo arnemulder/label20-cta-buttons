@@ -209,7 +209,7 @@ foreach ($days as $day) {
     <tr>
         <th><?php echo ucfirst($day); ?></th>
         <td>
-            <input type="text" name="l20cta_opening_<?php echo $key; ?>" value="<?php echo esc_attr(get_option("l20cta_opening_$key")); ?>" placeholder="09:00-17:00">
+            <input type="text" name="l20cta_opening_<?php echo $key; ?>" value="<?php echo esc_attr(get_option("l20cta_opening_$key")); ?>" placeholder=" ">
         </td>
     </tr>
 <?php } ?>
