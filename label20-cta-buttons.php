@@ -20,9 +20,6 @@ $updateChecker = Puc_v4_Factory::buildUpdateChecker(
     'label20-cta-buttons'
 );
 
-// Optioneel: als de repo privé is, kun je hier een GitHub-token instellen:
-$updateChecker->setAuthentication('GITHUB_ACCESS_TOKEN');
-
 // Gebruik de juiste branch (bijv. 'main')
 $updateChecker->setBranch('main');
 
