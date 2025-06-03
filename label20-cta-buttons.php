@@ -3,7 +3,7 @@
 Plugin Name: Label 20 CTA Buttons
 Plugin URI: https://github.com/arnemulder/label20-cta-buttons
 Description: Toon een zwevende CTA-knop met uitbreidbare contactopties.
-Version: 1.0.0
+Version: 1.0.4
 Author: Arne Mulder
 Author URI: https://label20.nl
 License: GPLv2 or later
