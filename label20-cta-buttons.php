@@ -3,7 +3,7 @@
 Plugin Name: Label 20 CTA Buttons
 Plugin URI: https://github.com/arnemulder/label20-cta-buttons
 Description: Toon een zwevende CTA-knop met uitbreidbare contactopties.
-Version: 1.0.4
+Version: 1.0.5
 Author: Arne Mulder
 Author URI: https://label20.nl
 License: GPLv2 or later
@@ -24,6 +24,7 @@ function l20cta_enqueue_scripts() {
     $whatsapp_number = get_option('l20cta_whatsapp_number');
     $whatsapp_text = get_option('l20cta_whatsapp_text');
     $form_url = get_option('l20cta_form_url');
+    $position = get_option('l20cta_position', 'right');
 
     // Links genereren
     $phone_url = ($phone_number) ? 'tel:' . preg_replace('/\D+/', '', $phone_number) : '';
@@ -55,6 +56,7 @@ function l20cta_enqueue_scripts() {
         'main_bg_color' => get_option('l20cta_main_bg_color'),
         'main_icon_color' => get_option('l20cta_main_icon_color'),
 		'form_target_blank' => get_option('l20cta_form_target_blank', false),
+		'position' => $position,
         'openings' => [
             'maandag' => get_option('l20cta_opening_maandag'),
             'dinsdag' => get_option('l20cta_opening_dinsdag'),
@@ -70,7 +72,8 @@ add_action('wp_enqueue_scripts', 'l20cta_enqueue_scripts');
 
 // HTML output
 function l20cta_display_buttons() {
-    echo '<div class="l20cta-wrapper">
+    $position = get_option('l20cta_position', 'right');
+    echo '<div class="l20cta-wrapper position-' . esc_attr($position) . '">
     <div class="l20cta-buttons"></div>
     <button id="l20cta-main-btn"><i class="fa fa-plus"></i></button>
 </div>';
@@ -104,6 +107,15 @@ function l20cta_settings_page() {
                     <th>Kleur plus-icoon</th>
                     <td><input type="color" name="l20cta_main_icon_color" value="<?php echo esc_attr(get_option('l20cta_main_icon_color')); ?>"></td>
                 </tr>
+				<tr>
+                    <th>Positie van de knoppen</th>
+                    <td>
+                        <select name="l20cta_position">
+                            <option value="left" <?php selected(get_option('l20cta_position'), 'left'); ?>>Links</option>
+                            <option value="right" <?php selected(get_option('l20cta_position'), 'right'); ?>>Rechts</option>
+                        </select>
+                    </td>
+                </tr>
             </table>
 
             <h2>Buttons</h2>
@@ -126,6 +138,7 @@ function l20cta_settings_page() {
                     <th>Kleur icoon</th>
                     <td><input type="color" name="l20cta_phone_icon_color" value="<?php echo esc_attr(get_option('l20cta_phone_icon_color')); ?>"></td>
                 </tr>
+		
             </table>
 
             <h3>E-mail</h3>
@@ -146,6 +159,7 @@ function l20cta_settings_page() {
                     <th>Kleur icoon</th>
                     <td><input type="color" name="l20cta_email_icon_color" value="<?php echo esc_attr(get_option('l20cta_email_icon_color')); ?>"></td>
                 </tr>
+				
             </table>
 
             <h3>WhatsApp</h3>
@@ -228,23 +242,22 @@ function l20cta_register_settings() {
     register_setting('l20cta_settings_group', 'l20cta_whatsapp_number');
     register_setting('l20cta_settings_group', 'l20cta_whatsapp_text');
     register_setting('l20cta_settings_group', 'l20cta_form_url');
-	register_setting('l20cta_settings_group', 'l20cta_form_target_blank');
-
-
+    register_setting('l20cta_settings_group', 'l20cta_form_target_blank');
     register_setting('l20cta_settings_group', 'l20cta_phone_icon_color');
     register_setting('l20cta_settings_group', 'l20cta_email_icon_color');
     register_setting('l20cta_settings_group', 'l20cta_whatsapp_icon_color');
     register_setting('l20cta_settings_group', 'l20cta_form_icon_color');
-
     register_setting('l20cta_settings_group', 'l20cta_phone_bg_color');
     register_setting('l20cta_settings_group', 'l20cta_email_bg_color');
     register_setting('l20cta_settings_group', 'l20cta_whatsapp_bg_color');
     register_setting('l20cta_settings_group', 'l20cta_form_bg_color');
-
     register_setting('l20cta_settings_group', 'l20cta_phone_order');
     register_setting('l20cta_settings_group', 'l20cta_email_order');
     register_setting('l20cta_settings_group', 'l20cta_whatsapp_order');
     register_setting('l20cta_settings_group', 'l20cta_form_order');
+    register_setting('l20cta_settings_group', 'l20cta_main_bg_color');
+    register_setting('l20cta_settings_group', 'l20cta_main_icon_color');
+    register_setting('l20cta_settings_group', 'l20cta_position');
 	$dagen = ['maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag','zondag'];
 foreach ($dagen as $dag) {
     register_setting('l20cta_settings_group', "l20cta_opening_" . strtolower($dag));
