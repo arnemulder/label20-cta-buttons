@@ -165,7 +165,7 @@ function l20cta_settings_page() {
             <h3>WhatsApp</h3>
             <table class="form-table">
                 <tr>
-                    <th>WhatsApp telefoonnummer (bijv. 0031612345678)</th>
+                    <th>WhatsApp telefoonnummer (bijv. +31612345678) - let op! Gebruik +31 en niet 0031</th>
                     <td><input type="text" name="l20cta_whatsapp_number" value="<?php echo esc_attr(get_option('l20cta_whatsapp_number')); ?>"></td>
                 </tr>
                 <tr>
